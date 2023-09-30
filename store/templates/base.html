@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <h1>{{ title }}</h1>
+        <section>
+            {% if request.user.is_authenticated %}
+                <h4>
+                    Welcome, 
+                    {% if request.user.first_name %} 
+                        {{ request.user.first_name }}
+                    {% else %}
+                        {{ request.user.username}}
+                    {% endif %}!
+                    <a href="{% url 'admin:index' %}">Admin</a>
+                </h4>
+            {% else %}
+                <h4>
+                    Welcome, mysterious person! 
+                    Would you like to <a href="{% url 'admin:index' %}">Login</a>?
+                </h4>
+            {% endif %}            
+            </section>
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'store' %}">Store</a></li>
+        </ul>
+        {% block content %} 
+        {% endblock %}
+    </body>
+</html>
