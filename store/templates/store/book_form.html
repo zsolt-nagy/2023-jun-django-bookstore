@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if success_message %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ success_message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<p>
+    <a href="{% url 'new_book' %}">Create another book</a> 
+</p>
+{% endif %}
+
+{% if display_form %}
+    <form action="{% url 'new_book' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="InputTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="InputTitle" name="title" />
+        </div>
+        <div class="mb-3">
+            <label for="InputAuthor" class="form-label">Author</label>
+            <input type="text" class="form-control" id="InputAuthor" name="author" />
+        </div>
+        <div class="mb-3">
+            <label for="InputDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="InputDescription" rows="3" name="description"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="InputPublishDate" class="form-label">Date of Publication</label>
+            <input type="date" class="form-control" id="InputPublishDate" name="publish_date" />
+        </div>  
+        <div class="mb-3">
+            <label for="InputPrice" class="form-label">Price</label>
+            <input 
+                type="number" 
+                min="0"
+                step="0.01"
+                class="form-control" 
+                id="InputPrice" 
+                name="price" />
+        </div>  
+        <div class="mb-3">
+            <label for="InputStock" class="form-label">Stock</label>
+            <input 
+                type="number" 
+                min="0"
+                class="form-control" 
+                id="InputStock" 
+                name="stock" />
+        </div> 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endif %}
+
+{% endblock %}

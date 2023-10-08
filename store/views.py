@@ -37,3 +37,23 @@ def book_details(request, book_id):
         context['title'] = 'The book you are looking for is not available'
         context['has_error'] = True
     return render(request, 'store/book_details.html', context)
+
+
+def new_book(request):
+    context = {
+        'title': 'New Book',
+        'menu': 'new_book',
+        'display_form': False,
+    }
+    if request.method == 'POST':
+        print(request.POST.get('title'))
+        print(request.POST.get('author'))
+        print(request.POST.get('description'))
+        print(request.POST.get('publish_date'))
+        print(request.POST.get('price'))
+        print(request.POST.get('stock'))
+        context['success_message'] = 'The book has been created'
+    else:
+        context['display_form'] = True
+
+    return render(request, 'store/book_form.html', context)
