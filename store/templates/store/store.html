@@ -2,4 +2,14 @@
 
 {% block content %}
 <p>There {{ count|pluralize:"is,are" }} {{ count }} book{{ count|pluralize }} in the store.</p>
+
+<ul>
+    {% for book in books %}
+        <li>
+            <a href="{% url 'book_details' book.id %}">
+                <strong>{{ book.author }}: {{ book.title }}</strong>
+            </a>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}
