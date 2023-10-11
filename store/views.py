@@ -46,13 +46,26 @@ def new_book(request):
         'display_form': False,
     }
     if request.method == 'POST':
-        print(request.POST.get('title'))
-        print(request.POST.get('author'))
-        print(request.POST.get('description'))
-        print(request.POST.get('publish_date'))
-        print(request.POST.get('price'))
-        print(request.POST.get('stock'))
-        context['success_message'] = 'The book has been created'
+        try:
+            new_book = Book(
+                title=request.POST.get('title'),
+                author=request.POST.get('author'),
+                description=request.POST.get('description'),
+                publish_date=request.POST.get('publish_date'),
+                price=request.POST.get('price'),
+                stock=request.POST.get('stock'),
+            )
+            new_book.save()
+            context['success_message'] = 'The book has been created'
+        except:
+            context['book_title'] = request.POST.get('title')
+            context['author'] = request.POST.get('author')
+            context['description'] = request.POST.get('description')
+            context['publish_date'] = request.POST.get('publish_date')
+            context['price'] = request.POST.get('price')
+            context['stock'] = request.POST.get('stock')
+            context['error_message'] = 'Error creating book'
+            context['display_form'] = True
     else:
         context['display_form'] = True
 

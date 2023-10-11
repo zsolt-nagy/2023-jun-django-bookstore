@@ -10,6 +10,14 @@
 <p>
     <a href="{% url 'new_book' %}">Create another book</a> 
 </p>
+{% elif error_message %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error_message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<p>
+    <a href="{% url 'new_book' %}">Create another book</a> 
+</p>
 {% endif %}
 
 {% if display_form %}
@@ -17,19 +25,42 @@
         {% csrf_token %}
         <div class="mb-3">
             <label for="InputTitle" class="form-label">Title</label>
-            <input type="text" class="form-control" id="InputTitle" name="title" />
+            <input 
+                type="text" 
+                class="form-control" 
+                id="InputTitle" 
+                name="title" 
+                value="{{ book_title }}" 
+                required />
         </div>
         <div class="mb-3">
             <label for="InputAuthor" class="form-label">Author</label>
-            <input type="text" class="form-control" id="InputAuthor" name="author" />
+            <input 
+                type="text" 
+                class="form-control" 
+                id="InputAuthor" 
+                name="author" 
+                value="{{ author }}"
+                required />
         </div>
         <div class="mb-3">
             <label for="InputDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="InputDescription" rows="3" name="description"></textarea>
+            <textarea 
+                class="form-control" 
+                id="InputDescription" 
+                rows="3" 
+                name="description" 
+                required>{{ description }}</textarea>
         </div>
         <div class="mb-3">
             <label for="InputPublishDate" class="form-label">Date of Publication</label>
-            <input type="date" class="form-control" id="InputPublishDate" name="publish_date" />
+            <input 
+                type="date" 
+                class="form-control" 
+                id="InputPublishDate" 
+                name="publish_date" 
+                value="{{ publish_date }}"
+                required />
         </div>  
         <div class="mb-3">
             <label for="InputPrice" class="form-label">Price</label>
@@ -37,8 +68,10 @@
                 type="number" 
                 min="0"
                 step="0.01"
+                required
                 class="form-control" 
                 id="InputPrice" 
+                value="{{ price }}"
                 name="price" />
         </div>  
         <div class="mb-3">
@@ -46,8 +79,10 @@
             <input 
                 type="number" 
                 min="0"
+                required
                 class="form-control" 
                 id="InputStock" 
+                value="{{ stock }}"
                 name="stock" />
         </div> 
         <button type="submit" class="btn btn-primary">Submit</button>
