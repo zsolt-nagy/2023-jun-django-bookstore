@@ -8,6 +8,13 @@
             <p><strong>Date of Publication</strong>: {{ book.publish_date }}</p>
             <p><strong>Price</strong>: {{ book.price }}</p>
             <p><strong>Stock</strong>: {{ book.stock }}</p>
+            <p>
+                <a 
+                    type="button" 
+                    class="btn btn-success" 
+                    role="button" 
+                    href="{% url 'edit_book' book.id %}">Edit</a>
+            </p>
         </section>
     {% endif %}
 {% endblock %}

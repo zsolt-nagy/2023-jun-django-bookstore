@@ -21,7 +21,11 @@
 {% endif %}
 
 {% if display_form %}
+    {% if form_action == 'edit_book' %}
+    <form action="{% url 'edit_book' book_id %}" method="POST">
+    {% else %}
     <form action="{% url 'new_book' %}" method="POST">
+    {% endif %}
         {% csrf_token %}
         <div class="mb-3">
             <label for="InputTitle" class="form-label">Title</label>
