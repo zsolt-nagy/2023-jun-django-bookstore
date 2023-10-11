@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if not has_error %}
+    {% if hide_book_details %}
+        <p><a href="{% url 'store' %}">Back to Store</a></p>
+    {% else %}
         <section class="book-details">
             <p><strong>Author</strong>: {{ book.author }}</p>
             <p><strong>Description</strong>: {{ book.description }}</p>
@@ -14,6 +16,12 @@
                     class="btn btn-success" 
                     role="button" 
                     href="{% url 'edit_book' book.id %}">Edit</a>
+
+                <a 
+                    type="button" 
+                    class="btn btn-danger" 
+                    role="button" 
+                    href="{% url 'delete_book' book.id %}">Delete</a>
             </p>
         </section>
     {% endif %}

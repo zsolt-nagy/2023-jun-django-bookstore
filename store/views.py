@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from .models import Book
 
 # Create your views here.
@@ -27,7 +27,7 @@ def store(request):
 def book_details(request, book_id):
     context = {
         'menu': 'store',
-        'has_error': False,
+        'hide_book_details': False,
     }
     try:
         book = Book.objects.get(id=book_id)
@@ -35,7 +35,7 @@ def book_details(request, book_id):
         context['book'] = book
     except:
         context['title'] = 'The book you are looking for is not available'
-        context['has_error'] = True
+        context['hide_book_details'] = True
     return render(request, 'store/book_details.html', context)
 
 
@@ -113,3 +113,20 @@ def edit_book(request, book_id):
         print(context['description'])
 
     return render(request, 'store/book_form.html', context)
+
+
+def delete_book(request, book_id):
+    context = {
+        'title': 'The book',
+        'menu': 'store',
+        'hide_book_details': True,
+    }
+    try:
+        book = Book.objects.get(id=book_id)
+        context['title'] = book.title
+        context['book'] = book
+        book.delete()
+        context['title'] += " has been deleted."
+    except:
+        context['title'] += ' could not be deleted.'
+    return render(request, 'store/book_details.html', context)
